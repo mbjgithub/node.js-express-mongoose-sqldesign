@@ -1,0 +1,39 @@
+<style>
+ #cxygxx input{
+ 	margin:10px;
+ }
+ #cxygxx #tip{
+ color:red;
+ }
+</style>
+<span>查询员工信息</span>
+<div id="cxygxx">
+ <form action="/cxygxx" method="post">
+  <span>请输入要查询员工的姓名:</span>
+  <input type="text" name="name" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-msg="<%= tip %>"></span>
+ </form>
+ <script>
+ var msg=$("#tip").attr("data-msg");
+ if(msg!=""){
+ $("#tip").text(msg);
+ }
+</script>
+ <% if(query!=""){ %>
+   <table>
+    <tr>
+     <th>姓名</th>
+     <th>年龄</th>
+     <th>工种</th>
+     <th>部门</th>
+    </tr>
+    <tr>
+     <td><%= query.name %></td>
+     <td><%= query.age %></td>
+     <td><%= query.basic_profession.basic_profession %></td>
+     <td><%= query.dept_name.dept_name %></td>
+    </tr>
+   </table>
+ <%}%>
+</div>

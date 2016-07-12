@@ -1,0 +1,46 @@
+<!--<% layout('layout') -%>-->
+ <script type="text/javascript">
+  $(document).ready(function(){
+     $("td").on("click","a[alt=delete]",function(e){
+           var aObj=$(this);
+           e.preventDefault();
+           var u=aObj.attr("href");
+           $.ajax({
+               url:u,
+               type:"POST",
+               dataType:"json",
+               success:function(data,resText,jqXHR){
+                    if(data.flag==true){
+                        alert("删除成功");
+                        //不知道为什么，$(this).parent("td"),一直获取不到,困了几个小时之后，终于知道为什么了，
+                        //因为this到了回调函数里面已经变成window了，不再是当前被点击的a元素了
+                        aObj.parent("td").parent("tr").remove();
+                    }else{
+                         alert("删除失败");
+                    }
+               }
+           });
+     });
+  });
+ </script>
+<table border="1">
+ <tr>
+  <th>考勤员工姓名</th>
+  <th>考勤结果</th>
+  <th>考勤结果次数</th>
+  <th>每次考勤要扣的工资</th>
+  <th>删除操作</th>
+  <th>修改操作</th>
+ </tr>
+ <%if(docs.length){
+   docs.forEach(function(doc){ %>
+   <tr>
+    <td><%= doc.att_employee.name %></td>
+    <td><%= doc.att_status.ap_status %></td>
+    <td><%= doc.att_times %></td>
+    <td><%= doc.att_status.ap_salary %></td>
+    <td><a href="/attendanceDelete?name=<%= doc._id %>" alt="delete">删除</a></td>
+    <td><a href="/attendanceModify?name=<%= doc.att_employee.name %>&_id=<%= doc._id %>&times=<%= doc.att_times %>&salary=<%= doc.att_status.ap_salary %>&status=<%= doc.att_status.ap_status %>">修改</a></td>
+   </tr>
+ <%})}%>
+</table>

@@ -1,0 +1,24 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<span>录入员工考勤信息:</span>
+<div id="lrygxx">
+ <form action="/lrkqxx" method="post">
+  姓名:<input type="text" name="name" placeholder="请输入员工姓名..." required="required">
+  考勤次数:<input type="number" name="att_times" required="required"><br/>
+  考勤结果:<select name="ap_status">
+  <option>--请选择--</option>
+   <% if(attendancekind.length){
+         attendancekind.forEach(function(ak){ %>
+   <option><%= ak.ap_status %></option>
+   <% })} %>
+  </select><br/>
+  <input class="btn" type="submit" value="录入">
+  <input class="btn" type="reset" value="重置">
+  <span id="tip" data-tip="<%= lrkqxxTip %>"></span>
+  <script>
+   var msg=$("#tip").attr("data-tip");
+   if(msg!=""){
+   $("#tip").text(msg).css("color","red");
+   }
+  </script>
+ </form>
+</div>

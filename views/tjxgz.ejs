@@ -1,0 +1,41 @@
+<style type="text/css">
+ #tjxgz{
+ 	width: 100%;
+ 	text-align: center;
+ }
+ #tjxgz input{
+ 	margin: 10px;
+ 	padding-left:5px;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("#tjxgz input[name=basic_profession]").keyup(function(){
+       if($("#tjxgz input[name=basic_profession]").val()==""){
+            return;
+       }
+          $.ajax({
+              url:"/tjxgzAjax",
+              type:"POST",
+              data:$("#tjxgz input[name=basic_profession]").serialize(),
+              dataType:"json",
+              success:function(data,resText,jqXHR){
+                    if(data.flag==true){
+                        $("#tipMsg").text("此工种已经存在").css("color","red");
+                    }else{
+                        $("#tipMsg").text("输入的工种合法").css("color","black");
+                    }
+              }
+          });
+      });
+ });
+</script>
+<span>添加新工种:</span>
+<div id="tjxgz">
+ <form method="post" action="/tjxgz" id="tjxgzForm">
+  工种名称:<input type="text" name="basic_profession" placeholder="请输入工种名称..." required="required">
+  工种工资:<input type="number" name="basic_salary"><span id="tipMsg"></span><br/>
+  <input type="submit" value="添加">
+  <input type="reset" value="重置">
+ </form>
+</div>

@@ -1,0 +1,32 @@
+<style>
+ #cxgzxx input{
+ 	margin:10px;
+ }
+</style>
+<span>查询工种信息</span>
+<div id="cxgzxx">
+ <form action="/cxgzxx" method="post">
+  <span>请输入要查询工种的名称:</span>
+  <input type="text" name="basic_profession" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-msg="<%= tip %>"></span>
+ </form>
+ <script>
+ var msg=$("#tip").attr("data-msg");
+ if(msg!=""){
+ $("#tip").text(msg).css("color","red");
+ }
+</script>
+ <% if(doc!=""){ %>
+   <table>
+    <tr>
+     <th>工种名称</th>
+     <th>工种工资</th>
+    </tr>
+    <tr>
+     <td><%= doc.basic_profession %></td>
+     <td><%= doc.basic_salary %></td>
+    </tr>
+   </table>
+ <%}%>
+</div>

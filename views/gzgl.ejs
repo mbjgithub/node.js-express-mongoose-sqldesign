@@ -1,0 +1,14 @@
+<!--<% layout('layout') -%>-->
+<table border="1">
+ <tr>
+  <th>基本工种</th>
+  <th>基本工种工资</th>
+ </tr>
+ <%if(docs.length){
+   docs.forEach(function(doc){ %>
+   <tr>
+    <td><%= doc.basic_profession %></td>
+    <td><%= doc.basic_salary %></td>
+   </tr>
+ <%})}%>
+</table>

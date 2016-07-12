@@ -1,0 +1,61 @@
+<style>
+ #cxcfxx input{
+ 	margin:10px;
+ }
+ #cxcfxx #tip{
+ color:red;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("input[name=name]").keyup(function(){
+         console.log(100);
+          $.ajax({
+             url:"/cxcfxxAjax",
+             type:"post",
+             dataType:"json",
+             data:$("input[name=name]").serialize(),
+             success:function(data,resText,jqXHR){
+                  if(data.flag==true){
+                      $("#tip").text("此员工不存在").css("color","red");
+                      //设置submit的提交按钮disabled
+                  }else{
+                      $("#tip").text("输入的员工合法").css("color","black");
+                  }
+             }
+          });
+      });
+ });
+</script>
+<span>查询员工考勤信息</span>
+<div id="cxcfxx">
+ <form action="/cxcfxx" method="post" id="cxcfxxForm">
+  <span>请输入要查询处罚员工的姓名:</span>
+  <input type="text" name="name" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-tip="<%= tip %>"></span>
+  <script>
+   var tipMsg=$("#tip").attr("data-tip");
+   if(tipMsg!=""){
+      $("#tip").text(tipMsg).css("color","red");
+   }
+  </script>
+ </form>
+ <% if(docs.length){%>
+    <table>
+     <tr>
+      <th>员工姓名</th>
+      <th>处罚类型</th>
+      <th>处罚次数</th>
+      <th>每次处罚要扣的工资</th>
+     </tr>
+     <% docs.forEach(function(doc){ %>
+    <tr>
+     <td><%= doc.op_employee.name %></td>
+     <td><%= doc.op_kind.op_kind %></td>
+     <td><%= doc.op_times %></td>
+     <td><%= doc.op_kind.op_salary %></td>
+    </tr>
+    <% })} %>
+    </table>
+</div>

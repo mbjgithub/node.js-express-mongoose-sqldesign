@@ -1,0 +1,42 @@
+<style type="text/css">
+ #tjxbm{
+ 	width: 100%;
+ 	text-align: center;
+ }
+ #tjxbm input{
+ 	margin: 10px;
+ 	padding-left:5px;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("#tjxbm input[name=dept_name]").keyup(function(){
+       if($("#tjxbm input[name=dept_name]").val()==""){
+            return;
+       }
+          $.ajax({
+              url:"/tjxbmAjax",
+              type:"POST",
+              data:$("#tjxbm input[name=dept_name]").serialize(),
+              dataType:"json",
+              success:function(data,resText,jqXHR){
+                    if(data.flag==true){
+                        $("#tipMsg").text("此部门已经存在").css("color","red");
+                    }else{
+                        $("#tipMsg").text("输入的部门合法").css("color","black");
+                    }
+              }
+          });
+      });
+ });
+</script>
+<span>添加新部门:</span>
+<div id="tjxbm">
+ <form method="post" action="/tjxbm" id="tjxbmForm">
+  部门名称:<input type="text" name="dept_name" placeholder="请输入部门名称..." required="required">
+  部门领导:<input type="text" name="dept_leader" placeholder="请输入部门领导名字..." required="required"><br/>
+  部门津贴:<input type="number" name="dept_salary"><span id="tipMsg"></span><br/>
+  <input type="submit" value="添加">
+  <input type="reset" value="重置">
+ </form>
+</div>

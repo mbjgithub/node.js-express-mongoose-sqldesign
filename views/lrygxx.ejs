@@ -1,0 +1,31 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<span>录入员工信息:</span>
+<div id="lrygxx">
+ <form action="/lrygxx" method="post">
+  姓名:<input type="text" name="name" placeholder="请输入员工姓名..." required="required">
+  年龄:<input type="number" name="age" required="required"><br/>
+  工种:<select name="basic_profession">
+  <option>--请选择--</option>
+   <% if(profession.length){
+         profession.forEach(function(p){ %>
+   <option><%= p.basic_profession %></option>
+   <% })} %>
+  </select>
+  部门:<select name="dept_name">
+  <option>--请选择--</option>
+   <% if(dept.length){
+         dept.forEach(function(d){  %>
+   <option><%= d.dept_name %></option>
+   <% })} %>
+  </select><br/>
+  <input class="btn" type="submit" value="录入">
+  <input class="btn" type="reset" value="重置">
+  <span id="tip" data-tip="<%= lrygxxTip %>"></span>
+  <script>
+   var msg=$("#tip").attr("data-tip");
+   if(msg!=""){
+   $("#tip").text(msg).css("color","red");
+   }
+  </script>
+ </form>
+</div>

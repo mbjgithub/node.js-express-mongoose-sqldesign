@@ -1,0 +1,24 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<span>录入员工加班信息:</span>
+<div id="lrygxx">
+ <form action="/lrjbxx" method="post">
+  姓名:<input type="text" name="name" placeholder="请输入员工姓名..." required="required">
+  加班次数:<input type="number" name="ew_times" required="required"><br/>
+  加班类型:<select name="ew_kind">
+  <option>--请选择--</option>
+   <% if(extraworkkind.length){
+         extraworkkind.forEach(function(ewk){ %>
+   <option><%= ewk.ew_kind %></option>
+   <% })} %>
+  </select><br/>
+  <input class="btn" type="submit" value="录入">
+  <input class="btn" type="reset" value="重置">
+  <span id="tip" data-tip="<%= lrjbxxTip %>"></span>
+  <script>
+   var msg=$("#tip").attr("data-tip");
+   if(msg!=""){
+   $("#tip").text(msg).css("color","red");
+   }
+  </script>
+ </form>
+</div>

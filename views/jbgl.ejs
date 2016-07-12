@@ -1,0 +1,46 @@
+<!--<% layout('layout') -%>-->
+ <script type="text/javascript">
+  $(document).ready(function(){
+     $("td").on("click","a[alt=delete]",function(e){
+           var aObj=$(this);
+           e.preventDefault();
+           var u=aObj.attr("href");
+           $.ajax({
+               url:u,
+               type:"POST",
+               dataType:"json",
+               success:function(data,resText,jqXHR){
+                    if(data.flag==true){
+                        alert("删除成功");
+                        //不知道为什么，$(this).parent("td"),一直获取不到,困了几个小时之后，终于知道为什么了，
+                        //因为this到了回调函数里面已经变成window了，不再是当前被点击的a元素了
+                        aObj.parent("td").parent("tr").remove();
+                    }else{
+                         alert("删除失败");
+                    }
+               }
+           });
+     });
+  });
+ </script>
+<table border="1">
+ <tr>
+  <th>加班员工姓名</th>
+  <th>加班种类</th>
+  <th>加班次数</th>
+  <th>每次加班的工资</th>
+  <th>删除操作</th>
+  <th>修改操作</th>
+ </tr>
+ <%if(docs.length){
+   docs.forEach(function(doc){ %>
+   <tr>
+    <td><%= doc.ew_employee.name %></td>
+    <td><%= doc.ew_kind.ew_kind %></td>
+    <td><%= doc.ew_times %></td>
+    <td><%= doc.ew_kind.ew_salary %></td>
+    <td><a href="/extraworkDelete?name=<%= doc._id %>" alt="delete">删除</a></td>
+    <td><a href="/extraworkModify?name=<%= doc.ew_employee.name %>&_id=<%= doc._id %>&times=<%= doc.ew_times %>&salary=<%= doc.ew_kind.ew_salary %>&kind=<%= doc.ew_kind.ew_kind %>">修改</a></td>
+   </tr>
+ <%})}%>
+</table>

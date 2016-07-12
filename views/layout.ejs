@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ejs layout demo</title>
+	<link type="text/css" href="css/layout.css" rel="stylesheet"></style>
+  <script type="text/javascript" rel="stylesheet" src="javascript/jquery-1.12.2.js"></script>
+  <script type="text/javascript" rel="stylesheet" src="javascript/layout.js"></script>
+</head>
+<body>
+  <div id="header">欢迎来到喵喵工资管理系统</div>
+  <div id="center">
+   <div id="left">
+    <ul>
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/yggl">员工管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/lrygxx">录入员工信息</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxygxx">查询员工信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/gzgl">工种管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/tjxgz">添加新工种</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxgzxx">查询工种信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/bmgl">部门管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/tjxbm">添加新部门</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxbmxx">查询部门信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/jbgl">加班管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/lrjbxx">录入加班信息</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxjbxx">查询加班信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/kqgl">考勤管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/lrkqxx">录入考勤信息</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxkqxx">查询考勤信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/cfgl">处罚管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/lrcfxx">录入处罚信息</a></li>
+       <li><img src="css/images/minus.gif"/><a href="/cxcfxx">查询处罚信息</a></li>
+      </ul>
+     </li>
+
+     <li class="imgLi"><img src="css/images/plus.gif"/><a href="/salarydetail">工资管理</a></li>
+     <li class="subLi">
+      <ul>
+       <li><img src="css/images/minus.gif"/><a href="/salarydetail">查询工资信息</a></li>
+      </ul>
+     </li>
+    </ul>
+   </div>
+   <div id="right">
+    <%- body -%>
+   </div>
+  </div>
+  <div id="footer">Copyright：喵喵</div>
+</body>
+</html>

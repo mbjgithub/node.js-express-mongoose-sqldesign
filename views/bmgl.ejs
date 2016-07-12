@@ -1,0 +1,16 @@
+<!--<% layout('layout') -%>-->
+<table border="1">
+ <tr>
+  <th>部门名称</th>
+  <th>部门津贴</th>
+  <th>部门领导</th>
+ </tr>
+ <%if(docs.length){
+   docs.forEach(function(doc){ %>
+   <tr>
+    <td><%= doc.dept_name %></td>
+    <td><%= doc.dept_salary %></td>
+    <td><%= doc.dept_leader %></td>
+   </tr>
+ <%})}%>
+</table>

@@ -1,0 +1,61 @@
+<style>
+ #cxkqxx input{
+ 	margin:10px;
+ }
+ #cxkqxx #tip{
+ color:red;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("input[name=name]").keyup(function(){
+         console.log(100);
+          $.ajax({
+             url:"/cxkqxxAjax",
+             type:"post",
+             dataType:"json",
+             data:$("input[name=name]").serialize(),
+             success:function(data,resText,jqXHR){
+                  if(data.flag==true){
+                      $("#tip").text("此员工不存在").css("color","red");
+                      //设置submit的提交按钮disabled
+                  }else{
+                      $("#tip").text("输入的员工合法").css("color","black");
+                  }
+             }
+          });
+      });
+ });
+</script>
+<span>查询员工考勤信息</span>
+<div id="cxkqxx">
+ <form action="/cxkqxx" method="post" id="cxkqxxForm">
+  <span>请输入要查询考勤员工的姓名:</span>
+  <input type="text" name="name" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-tip="<%= tip %>"></span>
+  <script>
+   var tipMsg=$("#tip").attr("data-tip");
+   if(tipMsg!=""){
+      $("#tip").text(tipMsg).css("color","red");
+   }
+  </script>
+ </form>
+ <% if(docs.length){%>
+    <table>
+     <tr>
+      <th>员工姓名</th>
+      <th>考勤结果</th>
+      <th>考勤结果次数</th>
+      <th>每次考勤要扣的工资</th>
+     </tr>
+     <% docs.forEach(function(doc){ %>
+    <tr>
+     <td><%= doc.att_employee.name %></td>
+     <td><%= doc.att_status.ap_status %></td>
+     <td><%= doc.att_times %></td>
+     <td><%= doc.att_status.ap_salary %></td>
+    </tr>
+    <% })} %>
+    </table>
+</div>

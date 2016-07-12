@@ -1,0 +1,37 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<script>
+ $(document).ready(function(){
+      $("select[name=ap_status]").change(function(){
+          $.ajax({
+            url:"/attSelectAjax",
+            type:"POST",
+            data:$("select[name=ap_status]").serialize(),
+            dataType:"json",
+            success:function(data,resText,jqXHR){
+                 $("input[name=ap_salary]").val(data.salary);
+            }
+          });
+      });
+ });
+</script>
+<span>修改员工考勤信息:</span>
+<div id="lrygxx">
+ <form action="/attendanceModify" method="post">
+  姓名:<input type="text" name="name" value="<%= name %>" disabled="disabled">
+  考勤次数:<input type="number" name="att_times" value="<%= times %>" required="required"><br/>
+  考勤类型:<select name="ap_status">
+   <% if(aps.length){
+         aps.forEach(function(ap){
+         if(status==ap.ap_status){ %>
+        <option selected><%= ap.ap_status %></option>
+        <% } else{ %>
+        <option><%= ap.ap_status %></option>
+        <% } %>
+   <% })} %>
+  </select>
+  考勤工资:<input type="text" name="ap_salary" value="<%= salary %>" disabled="disabled"><br/>
+  <input type="hidden" name="_id" value="<%= _id %>">
+  <input class="btn" type="submit" value="修改">
+  <input class="btn" type="reset" value="重置">
+ </form>
+</div>

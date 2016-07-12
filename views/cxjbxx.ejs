@@ -1,0 +1,62 @@
+<style>
+ #cxjbxx input{
+ 	margin:10px;
+ }
+ #cxjbxx #tip{
+ color:red;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("input[name=name]").keyup(function(){
+         console.log(100);
+          $.ajax({
+             url:"/cxjbxxAjax",
+             type:"post",
+             dataType:"json",
+             data:$("input[name=name]").serialize(),
+             success:function(data,resText,jqXHR){
+                  if(data.flag==true){
+                      $("#tip").text("此员工不存在").css("color","red");
+                      //设置submit的提交按钮disabled
+                  }else{
+                      $("#tip").text("输入的员工合法").css("color","black");
+                  }
+             }
+          });
+      });
+ });
+</script>
+<span>查询员工加班信息</span>
+<div id="cxjbxx">
+ <form action="/cxjbxx" method="post" id="cxjbxxForm">
+  <span>请输入要查询加班员工的姓名:</span>
+  <input type="text" name="name" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-tip="<%= tip %>"></span>
+  <script>
+   var tipMsg=$("#tip").attr("data-tip");
+   if(tipMsg!=""){
+      $("#tip").text(tipMsg).css("color","red");
+   }
+  </script>
+ </form>
+ <% if(docs.length){%>
+    <table>
+     <tr>
+      <th>加班员工姓名</th>
+      <th>加班种类</th>
+      <th>加班次数</th>
+      <th>每次加班的工资</th>
+     </tr>
+     <% docs.forEach(function(doc){ %>
+    <tr>
+     <td><%= doc.ew_employee.name %></td>
+     <td><%= doc.ew_kind.ew_kind %></td>
+     <td><%= doc.ew_times %></td>
+     <td><%= doc.ew_kind.ew_salary %></td>
+    </tr>
+    <% })} %>
+    </table>
+</div>
+

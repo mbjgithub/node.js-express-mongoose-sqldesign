@@ -1,0 +1,37 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<script>
+ $(document).ready(function(){
+      $("select[name=ew_kind]").change(function(){
+          $.ajax({
+            url:"/ewSelectAjax",
+            type:"POST",
+            data:$("select[name=ew_kind]").serialize(),
+            dataType:"json",
+            success:function(data,resText,jqXHR){
+                 $("input[name=ew_salary]").val(data.salary);
+            }
+          });
+      });
+ });
+</script>
+<span>修改员工加班信息:</span>
+<div id="lrygxx">
+ <form action="/extraworkModify" method="post">
+  姓名:<input type="text" name="name" value="<%= name %>" disabled="disabled">
+  加班次数:<input type="number" name="ew_times" value="<%= times %>" required="required"><br/>
+  加班类型:<select name="ew_kind">
+   <% if(ewks.length){
+         ewks.forEach(function(ewk){ %>
+         <% if(kind==ewk.ew_kind){ %>
+   <option selected><%= ewk.ew_kind %></option>
+    <% }else{ %>
+     <option><%= ewk.ew_kind %></option>
+     <% } %>
+   <% })} %>
+  </select>
+  加班工资:<input type="text" name="ew_salary" value="<%= salary %>" disabled="disabled"><br/>
+  <input type="hidden" name="_id" value="<%= _id %>">
+  <input class="btn" type="submit" value="修改">
+  <input class="btn" type="reset" value="重置">
+ </form>
+</div>

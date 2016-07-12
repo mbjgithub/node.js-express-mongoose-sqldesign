@@ -1,0 +1,64 @@
+<style>
+ #cxgzxx input{
+ 	margin:10px;
+ }
+</style>
+<script>
+ $(document).ready(function(){
+      $("input[name=name]").keyup(function(){
+          $.ajax({
+             url:"/salaryAjax",
+             type:"post",
+             dataType:"json",
+             data:$("input[name=name]").serialize(),
+             success:function(data,resText,jqXHR){
+                  if(data.flag==true){
+                      $("#tip").text("此员工不存在").css("color","red");
+                      //设置submit的提交按钮disabled
+                  }else{
+                      $("#tip").text("输入的员工合法").css("color","black");
+                  }
+             }
+          });
+      });
+ });
+</script>
+<span>查询员工工资</span>
+<div id="cxgzxx">
+ <form action="/salarydetail" method="post">
+  <span>请输入员工名称:</span>
+  <input type="text" name="name" required="required">
+  <input type="submit" value="查询" id="search">
+  <span id="tip" data-msg="<%= tip %>"></span>
+ </form>
+ <script>
+ var msg=$("#tip").attr("data-msg");
+ if(msg!=""){
+ $("#tip").text(msg).css("color","red");
+ }
+</script>
+ <% if(all!=""){ %>
+   <table>
+    <tr>
+     <th>员工编号</th>
+     <th>姓名</th>
+     <th>工种</th>
+     <th>部门</th>
+     <th>出勤情况</th>
+     <th>加班情况</th>
+     <th>处罚情况</th>
+     <th>工资</th>
+    </tr>
+    <tr>
+     <td><%= all.doc._id %></td>
+     <td><%= all.doc.name %></td>
+     <td><%= all.doc.basic_profession.basic_profession %></td>
+     <td><%= all.doc.dept_name.dept_name %></td>
+     <td><%= all.attStr %></td>
+     <td><%= all.ewStr %></td>
+     <td><%= all.opStr %></td>
+     <td><%= all.totalWage %></td>
+    </tr>
+   </table>
+ <%}%>
+</div>

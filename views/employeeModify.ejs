@@ -1,0 +1,24 @@
+<link href="css/lrygxx.css" type="text/css" rel="stylesheet">
+<span>修改员工信息:</span>
+<div id="lrygxx">
+ <form action="/employeeModify" method="post">
+  姓名:<input type="text" name="name" value="<%= doc.name %>" disabled="disabled">
+  <input type="hidden" name="name" value="<%= doc.name %>">
+  年龄:<input type="number" name="age" value="<%= doc.age %>" required="required"><br/>
+  <input type="hidden" name="_id" value="<%= doc._id %>">
+  部门:<select name="dept_name">
+   <% if(depts.length){
+         depts.forEach(function(dept){ %>
+   <option><%= dept.dept_name %></option>
+   <% })} %>
+  </select>
+  工种:<select name="basic_profession">
+   <% if(professions.length){
+         professions.forEach(function(profession){ %>
+   <option><%= profession.basic_profession %></option>
+   <% })} %>
+  </select><br/>
+  <input class="btn" type="submit" value="修改">
+  <input class="btn" type="reset" value="重置">
+ </form>
+</div>

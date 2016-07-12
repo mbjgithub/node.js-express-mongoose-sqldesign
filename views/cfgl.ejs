@@ -1,0 +1,46 @@
+<!--<% layout('layout') -%>-->
+ <script type="text/javascript">
+  $(document).ready(function(){
+     $("td").on("click","a[alt=delete]",function(e){
+           var aObj=$(this);
+           e.preventDefault();
+           var u=aObj.attr("href");
+           $.ajax({
+               url:u,
+               type:"POST",
+               dataType:"json",
+               success:function(data,resText,jqXHR){
+                    if(data.flag==true){
+                        alert("删除成功");
+                        //不知道为什么，$(this).parent("td"),一直获取不到,困了几个小时之后，终于知道为什么了，
+                        //因为this到了回调函数里面已经变成window了，不再是当前被点击的a元素了
+                        aObj.parent("td").parent("tr").remove();
+                    }else{
+                         alert("删除失败");
+                    }
+               }
+           });
+     });
+  });
+ </script>
+<table border="1">
+ <tr>
+  <th>处罚员工姓名</th>
+  <th>处罚类型</th>
+  <th>处罚次数</th>
+  <th>每次处罚要扣的工资</th>
+  <th>删除操作</th>
+  <th>修改操作</th>
+ </tr>
+ <%if(docs.length){
+   docs.forEach(function(doc){ %>
+   <tr>
+    <td><%= doc.op_employee.name %></td>
+    <td><%= doc.op_kind.op_kind %></td>
+    <td><%= doc.op_times %></td>
+    <td><%= doc.op_kind.op_salary %></td>
+    <td><a href="/otherpunishDelete?name=<%= doc._id %>" alt="delete">删除</a></td>
+    <td><a href="/otherpunishModify?name=<%= doc.op_employee.name %>&_id=<%= doc._id %>&times=<%= doc.op_times %>&salary=<%= doc.op_kind.op_salary %>&kind=<%= doc.op_kind.op_kind %>">修改</a></td>
+   </tr>
+ <%})}%>
+</table>
